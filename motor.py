@@ -85,8 +85,8 @@ if __name__ == "__main__":
     print("Motors ready...")
 
     try:
-        motor1.set_level(0.5)
-        motor2.set_level(0.5 * MOTOR1_TO_MOTOR2_RATIO)
+        motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_RATIO)
+        motor2.set_level(1.0)
         time.sleep(3)
         motor1.stop()
         motor2.stop()
