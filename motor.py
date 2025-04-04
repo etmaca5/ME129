@@ -49,15 +49,30 @@ class Motor:
         self.io.set_PWM_dutycycle(self.pin_legA, 0)
         self.io.set_PWM_dutycycle(self.pin_legB, 0)
 
+    # -1.0 to 1.0
     def set_level(self, level):
-        try:
-            pass
-        except:
-            pass
+        level = int(level * 255)
+        assert level <= 255 and level >= -255
+        if self.is_left:
+            zero_pin = self.pin_legA
+            nonzero_pin = self.pin_legB
+        else:
+            zero_pin = self.pin_legB
+            nonzero_pin = self.pin_legA
+
+        if level <= 0:
+            # swap zero pin
+            zero_pin, nonzero_pin = nonzero_pin, zero_pin
+
+        io.set_PWM_dutycycle(zero_pin, 0)
+        io.set_PWM_dutycycle(nonzero_pin, abs(level))
+
+
+
 
     def stop(self):
         # hint from ta: we can just call another method within this class to shorten this?
-        pass
+        self.set_level(0)
 
 # TODO: do we want to add this to a utils.py
 
@@ -75,94 +90,22 @@ if __name__ == "__main__":
     motor2 = Motor(PIN_MOTOR2_LEGA, PIN_MOTOR2_LEGB, False, io)
     print("Motors ready...")
 
-    
-    
-    # TODO:
-    """
-    Main code:
-    Initialize two Motor objects - left and right motor
-    Using the motor object's setlevel methods, Loop four times: move forward 1 meter, then turn 90 degrees
-    How to get it to move forward 1 meter exactly:
-    Trial and error: try different PWN levels and different times
-    How to get it to turn 90 degrees exactly:
-    Also trial and error: try different PWN levels for one of the legs for different times, while stopping the other leg. Will calibrate this so that we can turn either direction based on an input angle
-    Helper function with set angle - which will do exactly what is described in the above bullet
-    Once down with square, will stop both motors
-    Notes from meeting
-    EStimate distance by spins per voltage and gear ratio/ wheel circumference
-    """
-
-    # also make sure we call set angle function here 
-    # TODO: move the set angle function a different file - probably utils.py, which can contain all our helper functions
-
-
-    """
-    angle from 0 -270
-    likely will not be linear
-    """
-
-
-    
-
-
-    ############################################################
-    # Drive.
-    # Place this is a try-except structure, so we can turn off the
-    # motors even if the code crashes.
     try:
-        # Example 1: Ramp ONE PIN up/down.  Keep the other pin at zero.
-        print("Ramping Motor 2 (backward) up/down...") 
-        pinNonzero = PIN_MOTOR2_LEGB
-        pinZero    = PIN_MOTOR2_LEGA
-
-        for pwmlevel in [50, 100, 150, 200, 255, 200, 150, 100, 50, 0]:
-            print("Pin %d at level %3d, Pin %d at zero" %
-                  (pinNonzero, pwmlevel, pinZero))
-            io.set_PWM_dutycycle(pinNonzero, pwmlevel)
-            io.set_PWM_dutycycle(pinZero, 0)
-            time.sleep(1)
-
-        # Example 2: Drive ONE motor forward/backward.
-        print("Driving Motor 1 forward, stopping, then reversing...")
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA, 170)
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB,   0)
-        time.sleep(1)
-
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   0)
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB,   0)
-        time.sleep(1)
-
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   170)
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB, 0)
-        time.sleep(1)
-
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   0)
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB,   0)
-        time.sleep(1)
-
+        motor1.set_level(1.0)
+        motor2.set_level(1.0)
+        time.sleep(3)
+        motor1.set_level(0)
+        motor2.set_level(0)
     except BaseException as ex:
         # Report the error, but continue with the normal shutdown.
         print("Ending due to exception: %s" % repr(ex))
         traceback.print_exc()
-        
 
-    ############################################################
-    # Turn Off.
-    # Note the PWM will stay at the last commanded value.  So you want
-    # to be sure to set to zero before the program closes.  Else your
-    # robot will run away...
     print("Turning off...")
 
     # Clear the PINs (commands).
-    io.set_PWM_dutycycle(PIN_MOTOR1_LEGA, 0)
-    io.set_PWM_dutycycle(PIN_MOTOR1_LEGB, 0)
-    io.set_PWM_dutycycle(PIN_MOTOR2_LEGA, 0)
-    io.set_PWM_dutycycle(PIN_MOTOR2_LEGB, 0)
+    motor1.stop()
+    motor2.stop()
     
     # Also stop the interface.
     io.stop()
-    
-
-# Step 2: move in a line
-# Step 3: angle moving correctly
-# step 4: move in a square
