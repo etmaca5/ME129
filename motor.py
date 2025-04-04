@@ -15,14 +15,7 @@ PIN_MOTOR2_LEGB = 6
 class Motor:
     """
      Motor object code:
-    - __init__ parameters
-    - Parameters:
-    - pin_legA, pin_legB
-    - Left or right motor
-    - Relative power calibration (in case one motor is stronger than the
-    other)
-    - Prepare the PWM range
-    - prepare PWM frequency
+    
     - clear all pins
     - set_level method
     - Params:
@@ -57,7 +50,10 @@ class Motor:
         self.io.set_PWM_dutycycle(self.pin_legB, 0)
 
     def set_level(self, level):
-        pass
+        try:
+            pass
+        except:
+            pass
 
     def stop(self):
         # hint from ta: we can just call another method within this class to shorten this?
@@ -136,8 +132,8 @@ if __name__ == "__main__":
         io.set_PWM_dutycycle(PIN_MOTOR1_LEGB,   0)
         time.sleep(1)
 
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   0)
-        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB, 170)
+        io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   170)
+        io.set_PWM_dutycycle(PIN_MOTOR1_LEGB, 0)
         time.sleep(1)
 
         io.set_PWM_dutycycle(PIN_MOTOR1_LEGA,   0)
@@ -167,7 +163,6 @@ if __name__ == "__main__":
     io.stop()
     
 
-# TODO: Step 1: motor clas
 # Step 2: move in a line
 # Step 3: angle moving correctly
 # step 4: move in a square
