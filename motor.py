@@ -25,11 +25,10 @@ class Motor:
     object)
     - stop method
     """
-    def __init__(self, pin_legA, pin_legB, is_left, io):
+    def __init__(self, pin_legA, pin_legB, io):
         # TODO: crowley  - all code
         self.pin_legA = pin_legA
         self.pin_legB = pin_legB
-        self.is_left = is_left
         self.io = io
 
         # Set up the four pins as output (commanding the motors).
@@ -53,12 +52,8 @@ class Motor:
     def set_level(self, level):
         level = int(level * 255)
         assert level <= 255 and level >= -255
-        if self.is_left:
-            zero_pin = self.pin_legA
-            nonzero_pin = self.pin_legB
-        else:
-            zero_pin = self.pin_legB
-            nonzero_pin = self.pin_legA
+        zero_pin = self.pin_legA
+        nonzero_pin = self.pin_legB
 
         if level <= 0:
             # swap zero pin
@@ -86,8 +81,8 @@ if __name__ == "__main__":
         sys.exit(0)
     print("GPIO ready...")
 
-    motor1 = Motor(PIN_MOTOR1_LEGA, PIN_MOTOR1_LEGB, True, io)
-    motor2 = Motor(PIN_MOTOR2_LEGA, PIN_MOTOR2_LEGB, False, io)
+    motor1 = Motor(PIN_MOTOR1_LEGA, PIN_MOTOR1_LEGB, io)
+    motor2 = Motor(PIN_MOTOR2_LEGA, PIN_MOTOR2_LEGB, io)
     print("Motors ready...")
 
     try:
