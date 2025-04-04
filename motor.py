@@ -94,16 +94,16 @@ if __name__ == "__main__":
         motor1.set_level(-0.7 / MOTOR1_TO_MOTOR2_BACKWARD_RATIO)
         motor2.set_level(-0.7)
         time.sleep(3)
-
-
-
-        motor1.set_level(0.7 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        motor1.stop()
+        motor2.stop()
+        time.sleep(0.7)
+        motor1.set_level(0.7)
         motor2.set_level(-0.7)
         time.sleep(3)
         motor1.stop()
         motor2.stop()
         time.sleep(0.7)
-        motor1.set_level(-0.7 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        motor1.set_level(-0.7)
         motor2.set_level(0.7)
         time.sleep(3)
         motor1.stop()
