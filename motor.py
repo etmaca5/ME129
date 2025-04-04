@@ -80,8 +80,8 @@ if __name__ == "__main__":
         sys.exit(0)
     print("GPIO ready...")
 
-    motor1 = Motor(PIN_MOTOR1_LEGA, PIN_MOTOR1_LEGB, io)
-    motor2 = Motor(PIN_MOTOR2_LEGA, PIN_MOTOR2_LEGB, io)
+    motor1 = Motor(PIN_MOTOR1_LEGA, PIN_MOTOR1_LEGB, True, io)
+    motor2 = Motor(PIN_MOTOR2_LEGA, PIN_MOTOR2_LEGB, False, io)
     print("Motors ready...")
 
     try:
