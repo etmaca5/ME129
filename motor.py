@@ -13,7 +13,9 @@ PIN_MOTOR2_LEGA = 5
 PIN_MOTOR2_LEGB = 6
 
 # MOTOR 1 is the left motor
-MOTOR1_TO_MOTOR2_RATIO = 255.0 / 251.0
+MOTOR1_TO_MOTOR2_FORWARD_RATIO = 255.0 / 251.0
+MOTOR1_TO_MOTOR2_BACKWARD_RATIO = 255.0 / 251.0
+
 
 class Motor:
     """
@@ -86,9 +88,18 @@ if __name__ == "__main__":
     print("Motors ready...")
 
     try:
-        motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_RATIO)
-        motor2.set_level(1.0)
+        motor1.set_level(-1.0 / MOTOR1_TO_MOTOR2_BACKWARD_RATIO)
+        motor2.set_level(-1.0)
         time.sleep(3)
+        # motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        # motor2.set_level(1.0)
+        # time.sleep(3)
+        # motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        # motor2.set_level(-1.0)
+        # time.sleep(3)
+        # motor1.set_level(-1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        # motor2.set_level(1.0)
+        # time.sleep(3)
         motor1.stop()
         motor2.stop()
     except BaseException as ex:
