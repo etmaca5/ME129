@@ -88,20 +88,23 @@ if __name__ == "__main__":
     print("Motors ready...")
 
     try:
-        motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
-        motor2.set_level(1.0)
+        motor1.set_level(0.5 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        motor2.set_level(0.5)
         time.sleep(3)
-        motor1.set_level(-1.0 / MOTOR1_TO_MOTOR2_BACKWARD_RATIO)
-        motor2.set_level(-1.0)
+        motor1.set_level(-0.5 / MOTOR1_TO_MOTOR2_BACKWARD_RATIO)
+        motor2.set_level(-0.5)
         time.sleep(3)
-        motor1.set_level(1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
-        motor2.set_level(-1.0)
+
+
+
+        motor1.set_level(0.5 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        motor2.set_level(-0.5)
         time.sleep(3)
         motor1.stop()
         motor2.stop()
         time.sleep(0.5)
-        motor1.set_level(-1.0 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
-        motor2.set_level(1.0)
+        motor1.set_level(-0.5 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
+        motor2.set_level(0.5)
         time.sleep(3)
         motor1.stop()
         motor2.stop()
