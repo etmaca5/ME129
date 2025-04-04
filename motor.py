@@ -12,6 +12,8 @@ PIN_MOTOR1_LEGB = 7
 PIN_MOTOR2_LEGA = 5
 PIN_MOTOR2_LEGB = 6
 
+MOTOR1_TO_MOTOR2_RATIO = 2.0/1.0
+
 class Motor:
     """
      Motor object code:
@@ -25,10 +27,11 @@ class Motor:
     object)
     - stop method
     """
-    def __init__(self, pin_legA, pin_legB, io):
+    def __init__(self, pin_legA, pin_legB, is_motor1, io):
         # TODO: crowley  - all code
         self.pin_legA = pin_legA
         self.pin_legB = pin_legB
+        self.is_motor1 = is_motor1
         self.io = io
 
         # Set up the four pins as output (commanding the motors).
@@ -62,11 +65,7 @@ class Motor:
         io.set_PWM_dutycycle(zero_pin, 0)
         io.set_PWM_dutycycle(nonzero_pin, abs(level))
 
-
-
-
     def stop(self):
-        # hint from ta: we can just call another method within this class to shorten this?
         self.set_level(0)
 
 # TODO: do we want to add this to a utils.py
@@ -86,11 +85,11 @@ if __name__ == "__main__":
     print("Motors ready...")
 
     try:
-        motor1.set_level(1.0)
-        motor2.set_level(1.0)
+        motor1.set_level(0.5)
+        motor2.set_level(0.5 * MOTOR1_TO_MOTOR2_RATIO)
         time.sleep(3)
-        motor1.set_level(0)
-        motor2.set_level(0)
+        motor1.stop()
+        motor2.stop()
     except BaseException as ex:
         # Report the error, but continue with the normal shutdown.
         print("Ending due to exception: %s" % repr(ex))
