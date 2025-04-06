@@ -5,13 +5,11 @@ import time
 import traceback
 from utils import *
 
-# TODO: add all constants and calibrations here
 PIN_MOTOR1_LEGA = 8
 PIN_MOTOR1_LEGB = 7
 
 PIN_MOTOR2_LEGA = 5
 PIN_MOTOR2_LEGB = 6
-
 
 
 class Motor:
@@ -28,7 +26,6 @@ class Motor:
     - stop method
     """
     def __init__(self, pin_legA, pin_legB, is_motor1, io):
-        # TODO: crowley  - all code
         self.pin_legA = pin_legA
         self.pin_legB = pin_legB
         self.is_motor1 = is_motor1
@@ -68,7 +65,6 @@ class Motor:
     def stop(self):
         self.set_level(0)
 
-# TODO: do we want to add this to a utils.py
 
 
 
