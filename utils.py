@@ -61,7 +61,7 @@ def square(motor1, motor2, is_right=True):
         set_angle(motor1, motor2, angle)
 
 def triangle(motor1, motor2, is_right=True):
-    angle = 60 if is_right else -60
+    angle = 120 if is_right else -120
     for _ in range(3):
         move_dist(motor1, motor2, 1)
         set_angle(motor1, motor2, angle)
