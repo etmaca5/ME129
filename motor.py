@@ -12,9 +12,6 @@ PIN_MOTOR1_LEGB = 7
 PIN_MOTOR2_LEGA = 5
 PIN_MOTOR2_LEGB = 6
 
-# MOTOR 1 is the left motor
-MOTOR1_TO_MOTOR2_FORWARD_RATIO = 255.0 / 251.0
-MOTOR1_TO_MOTOR2_BACKWARD_RATIO = 255.0 / 252.0
 
 
 class Motor:
@@ -75,6 +72,7 @@ class Motor:
 
 
 
+
 if __name__ == "__main__":
     print("Setting up the GPIO...")
     io = pigpio.pi()
@@ -88,26 +86,8 @@ if __name__ == "__main__":
     print("Motors ready...")
 
     try:
-        motor1.set_level(0.7 / MOTOR1_TO_MOTOR2_FORWARD_RATIO)
-        motor2.set_level(0.7)
-        time.sleep(3)
-        motor1.set_level(-0.7 / MOTOR1_TO_MOTOR2_BACKWARD_RATIO)
-        motor2.set_level(-0.7)
-        time.sleep(3)
-        motor1.stop()
-        motor2.stop()
-        time.sleep(0.7)
-        motor1.set_level(0.7)
-        motor2.set_level(-0.7)
-        time.sleep(3)
-        motor1.stop()
-        motor2.stop()
-        time.sleep(0.7)
-        motor1.set_level(-0.7)
-        motor2.set_level(0.7)
-        time.sleep(3)
-        motor1.stop()
-        motor2.stop()
+        square(motor1, motor2)
+        # tr
     except BaseException as ex:
         # Report the error, but continue with the normal shutdown.
         print("Ending due to exception: %s" % repr(ex))
