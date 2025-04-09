@@ -5,8 +5,8 @@ MOTOR1_TO_MOTOR2_FORWARD_RATIO = 255.0 / 243.0
 MOTOR1_TO_MOTOR2_BACKWARD_RATIO = 255.0 / 250.0
 
 # Turning constants
-TIME_FOR_90_TURN = 0.54
-TIME_FOR_NEGATIVE_90_TURN = 0.6
+TIME_FOR_90_TURN = 0.6
+TIME_FOR_NEGATIVE_90_TURN = 0.65
 MOTOR1_FORWARD_TO_MOTOR2_BACKWARD_RATIO = 255.0 / 230.0
 MOTOR2_FORWARD_TO_MOTOR1_BACKWARD_RATIO = 255.0 / 220.0
 
@@ -18,13 +18,14 @@ BACKWARD_1M = 2.2
 
 # Angle is in degrees (positive or negative)
 def set_angle(motor1, motor2, angle):
+    base_power = 0.7
     if angle > 0:
-        power1 = 0.8
-        power2 = - 0.8 * MOTOR1_FORWARD_TO_MOTOR2_BACKWARD_RATIO
+        power1 = base_power
+        power2 = - base_power * MOTOR1_FORWARD_TO_MOTOR2_BACKWARD_RATIO
         time_for_90 = TIME_FOR_90_TURN
     else: 
-        power1 = - 0.8 * MOTOR2_FORWARD_TO_MOTOR1_BACKWARD_RATIO
-        power2 = 0.8
+        power1 = - base_power * MOTOR2_FORWARD_TO_MOTOR1_BACKWARD_RATIO
+        power2 = base_power
         time_for_90 = TIME_FOR_NEGATIVE_90_TURN
     angle = abs(angle)
 
